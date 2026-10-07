@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rudra Sanandiya — Hacktoberfest 2026 Sticker Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0e1b17;
+      --bg-surface: #142822;
+      --bg-surface-elevated: #1a352d;
+      --border-subtle: #24463b;
+      --border-accent: #376354;
+      --text-main: #f7f7f2;
+      --text-muted: #95ada5;
+      --accent-yellow: #f5b726;
+      --accent-coral: #eb736d;
+      --accent-red: #6c1d1c;
+      --accent-blue: #86aee8;
+      --accent-cream: #e4e5da;
+      --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.4);
+      --font-display: 'Outfit', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-display);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(245, 183, 38, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(235, 115, 109, 0.05) 0%, transparent 25%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+    }
+
+    header {
+      border-bottom: 2px solid var(--border-subtle);
+      background: rgba(14, 27, 23, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .pixel-bar {
+      display: flex;
+      height: 8px;
+      width: 100%;
+    }
+    .px-1 { background: #eb736d; flex: 2; }
+    .px-2 { background: #f5b726; flex: 3; }
+    .px-3 { background: #6c1d1c; flex: 1; }
+    .px-4 { background: #86aee8; flex: 2; }
+    .px-5 { background: #e4e5da; flex: 4; }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-badge {
+      background: var(--accent-yellow);
+      color: #10201d;
+      font-weight: 900;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .profile-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.4rem 0.8rem;
+      border-radius: 50px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.2s ease;
+    }
+
+    .profile-pill:hover {
+      border-color: var(--accent-yellow);
+      transform: translateY(-1px);
+    }
+
+    .profile-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent-yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: #10201d;
+      font-size: 0.8rem;
+    }
+
+    .profile-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-tag {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #f7f7f2 0%, #e4e5da 70%, #f5b726 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1rem;
+    }
+
+    .hero-progress {
+      margin-top: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-yellow);
+      letter-spacing: 0.05em;
+    }
+
+    /* Filters */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 0.5rem 1.1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-display);
+    }
+
+    .filter-btn:hover {
+      color: var(--text-main);
+      border-color: var(--accent-cream);
+    }
+
+    .filter-btn.active {
+      background: var(--accent-yellow);
+      color: #10201d;
+      border-color: var(--accent-yellow);
+      font-weight: 700;
+    }
+
+    /* Sticker Grid */
+    .sticker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .sticker-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.75rem 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-card);
+    }
+
+    .sticker-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-accent);
+      background: var(--bg-surface-elevated);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .badge-earned {
+      background: rgba(245, 183, 38, 0.15);
+      color: var(--accent-yellow);
+      border: 1px solid rgba(245, 183, 38, 0.4);
+    }
+
+    .badge-locked {
+      background: rgba(149, 173, 165, 0.1);
+      color: var(--text-muted);
+      border: 1px solid rgba(149, 173, 165, 0.2);
+    }
+
+    .sticker-art {
+      width: 130px;
+      height: 150px;
+      object-fit: contain;
+      margin-bottom: 1.25rem;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .sticker-card:hover .sticker-art {
+      transform: scale(1.08) rotate(-1deg);
+    }
+
+    .locked-hex {
+      width: 130px;
+      height: 150px;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.45;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+
+    .card-date {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-coral);
+      margin-bottom: 0.75rem;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: var(--font-display);
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-cert {
+      background: #1f3d34;
+      color: var(--accent-cream);
+      border: 1px solid var(--border-accent);
+    }
+    .btn-cert:hover {
+      background: #284d42;
+      border-color: var(--accent-yellow);
+      color: #fff;
+    }
+
+    .btn-link {
+      background: rgba(245, 183, 38, 0.15);
+      color: var(--accent-yellow);
+      border: 1px solid rgba(245, 183, 38, 0.3);
+    }
+    .btn-link:hover {
+      background: var(--accent-yellow);
+      color: #10201d;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 17, 0.88);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-accent);
+      border-radius: 12px;
+      max-width: 600px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+      animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 0.8rem 1.2rem;
+      background: var(--bg-surface-elevated);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 0.4rem;
+    }
+    .modal-close:hover {
+      color: #fff;
+    }
+
+    .modal-body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .modal-image {
+      max-width: 100%;
+      max-height: 60vh;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    .modal-footer {
+      padding: 0.8rem 1.2rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--accent-yellow);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .hero-title {
+        font-size: 1.85rem;
+      }
+      .sticker-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="pixel-bar">
+      <div class="px-1"></div>
+      <div class="px-2"></div>
+      <div class="px-3"></div>
+      <div class="px-4"></div>
+      <div class="px-5"></div>
+    </div>
+    <div class="header-content">
+      <div class="brand-wrap">
+        <span class="brand-title">Hacktoberfest</span>
+        <span class="brand-badge">'26</span>
+      </div>
+      <a class="profile-pill" href="https://github.com/rudra1806" target="_blank" rel="noopener noreferrer">
+        <div class="profile-avatar">R</div>
+        <span class="profile-name">Rudra Sanandiya</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-tag">Official Collectible Collection</div>
+      <h1 class="hero-title">Hacktoberfest 2026 Sticker Book</h1>
+      <p class="hero-subtitle">
+        Curated showcase of hexagonal badges, activity achievements, and open-source contributions.
+      </p>
+      <p class="hero-progress" id="progress"></p>
+    </section>
+
+    <!-- Filters -->
+    <div class="filter-bar" id="filters">
+      <!-- Filters rendered via JS from the sticker data -->
+    </div>
+
+    <!-- Grid -->
+    <div class="sticker-grid" id="grid">
+      <!-- Cards rendered via JS -->
+    </div>
+  </main>
+
+  <!-- Certificate Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span class="modal-title" id="modalTitle">Certificate</span>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img class="modal-image" id="modalImg" src="" alt="Certificate" />
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-link" id="modalDownload" href="" target="_blank" download>Open Full Size ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      Hacktoberfest is presented by <strong>DigitalOcean</strong> and partners.
+      Showcase curated by <a href="https://github.com/rudra1806">Rudra Sanandiya</a>.
+    </p>
+  </footer>
+
+  <script>
+    // Generated from data/hacktoberfest.json by scripts/generate-hacktoberfest.mjs. Do not edit by hand.
+    /* STICKER_DATA:START */
+    const STICKER_BOOK = {
+      "totalStickers": 24,
+      "stickers": [
+        {
+          "id": "key-authentication",
+          "name": "Sign into Hacktoberfest.com",
+          "category": "authentication",
+          "earned": true,
+          "earnedDate": "2026-10-01",
+          "description": "Authenticated official Hacktoberfest account for the 2026 open source journey.",
+          "image": "assets/hacktoberfest/stickers/key.png",
+          "certificate": "assets/hacktoberfest/certificates/key-cert.png",
+          "url": "https://hacktoberfest.com"
+        },
+        {
+          "id": "mymlh-address",
+          "name": "Add your address to your MyMLH account",
+          "category": "profile",
+          "earned": true,
+          "earnedDate": "2026-10-01",
+          "description": "Verified shipping address with MyMLH for official physical swag and digital perks.",
+          "image": "assets/hacktoberfest/stickers/home.png",
+          "certificate": "assets/hacktoberfest/certificates/home-cert.png",
+          "url": "https://my.mlh.io"
+        },
+        {
+          "id": "dev-account-connect",
+          "name": "Connect your DEV account",
+          "category": "integration",
+          "earned": true,
+          "earnedDate": "2026-10-04",
+          "description": "Connected DEV Community profile to publish articles and participate in hackathon challenges.",
+          "image": "assets/hacktoberfest/stickers/dev-link.png",
+          "certificate": "assets/hacktoberfest/certificates/dev-link-cert.png",
+          "url": "https://dev.to"
+        },
+        {
+          "id": "dev-launch-challenge",
+          "name": "Submit to the Hacktoberfest Launch Weekend DEV Challenge",
+          "category": "challenge",
+          "earned": true,
+          "earnedDate": "2026-10-04",
+          "description": "Submitted an open source project (NibbleNanny) for the official Launch Weekend DEV Challenge.",
+          "image": "assets/hacktoberfest/stickers/dev-launch.png",
+          "certificate": "assets/hacktoberfest/certificates/dev-launch-cert.png",
+          "url": "https://dev.to/challenges"
+        },
+        {
+          "id": "discord-community",
+          "name": "Join the Hacktoberfest Discord",
+          "category": "community",
+          "earned": true,
+          "earnedDate": "2026-10-03",
+          "description": "Joined the global Discord community of developers, maintainers, and open source enthusiasts.",
+          "image": "assets/hacktoberfest/stickers/discord.png",
+          "certificate": "assets/hacktoberfest/certificates/discord-cert.png",
+          "url": "https://discord.gg/hacktoberfest"
+        },
+        {
+          "id": "pre-event-preparation",
+          "name": "Complete Pre-Event Preparation",
+          "category": "preparation",
+          "earned": true,
+          "earnedDate": "2026-10-01",
+          "description": "Completed early registration and verified repo preparation checklist before launch.",
+          "image": "assets/hacktoberfest/stickers/pre.png",
+          "certificate": "assets/hacktoberfest/certificates/pre-cert.png",
+          "url": "https://hacktoberfest.com"
+        },
+        {
+          "id": "first-pull-request",
+          "name": "First Accepted Pull Request",
+          "category": "contribution",
+          "earned": false,
+          "earnedDate": null,
+          "description": "Submit your first pull request to an eligible open-source repository.",
+          "image": null,
+          "certificate": null,
+          "url": "https://hacktoberfest.com"
+        },
+        {
+          "id": "second-pull-request",
+          "name": "Second Accepted Pull Request",
+          "category": "contribution",
+          "earned": false,
+          "earnedDate": null,
+          "description": "Submit your second accepted pull request.",
+          "image": null,
+          "certificate": null,
+          "url": "https://hacktoberfest.com"
+        }
+      ]
+    };
+    /* STICKER_DATA:END */
+    const STICKER_DATA = STICKER_BOOK.stickers;
+
+    const grid = document.getElementById('grid');
+    const filterBar = document.getElementById('filters');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalImg = document.getElementById('modalImg');
+    const modalDownload = document.getElementById('modalDownload');
+    const modalClose = document.getElementById('modalClose');
+
+    function formatDate(isoDate) {
+      const date = new Date(`${isoDate}T00:00:00Z`);
+      return Number.isNaN(date.getTime())
+        ? isoDate
+        : date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+    }
+
+    function titleCase(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function renderFilters() {
+      const earned = STICKER_DATA.filter(s => s.earned).length;
+      const locked = STICKER_DATA.length - earned;
+      const categories = [...new Set(STICKER_DATA.map(s => s.category).filter(Boolean))];
+      const filters = [
+        ['all', 'All Collectibles'],
+        ['earned', `Earned (${earned})`],
+        ...(locked ? [['locked', `Locked (${locked})`]] : []),
+        ...categories.map(c => [c, titleCase(c)]),
+      ];
+      filterBar.innerHTML = filters
+        .map(([value, label], i) => `<button class="filter-btn${i === 0 ? ' active' : ''}" data-filter="${value}">${label}</button>`)
+        .join('');
+      document.getElementById('progress').textContent =
+        `${earned} of ${Math.max(STICKER_BOOK.totalStickers || 0, earned)} stickers collected`;
+    }
+
+    function renderCards(filter = 'all') {
+      grid.innerHTML = '';
+      const items = STICKER_DATA.filter(item => {
+        if (filter === 'all') return true;
+        if (filter === 'earned') return item.earned;
+        if (filter === 'locked') return !item.earned;
+        return item.category === filter;
+      });
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'sticker-card';
+
+        const badgeHtml = item.earned 
+          ? `<span class="card-badge badge-earned">Earned</span>`
+          : `<span class="card-badge badge-locked">Locked</span>`;
+
+        let artHtml = '';
+        if (item.earned && item.image) {
+          artHtml = `<img class="sticker-art" src="${item.image}" alt="${item.name}" loading="lazy" />`;
+        } else {
+          artHtml = `
+            <div class="locked-hex">
+              <svg width="90" height="100" viewBox="0 0 90 100" fill="none">
+                <polygon points="45,4 85,26 85,74 45,96 5,74 5,26" stroke="#24463b" stroke-width="2" fill="#142822" />
+                <path d="M45 42 C41 42 38 45 38 49 L38 54 L35 54 C33.9 54 33 54.9 33 56 L33 67 C33 68.1 33.9 69 35 69 L55 69 C56.1 69 57 68.1 57 67 L57 56 C57 54.9 56.1 54 55 54 L52 54 L52 49 C52 45 49 42 45 42 Z M45 45 C47.2 45 49 46.8 49 49 L49 54 L41 54 L41 49 C41 46.8 42.8 45 45 45 Z" fill="#466f61" />
+              </svg>
+            </div>
+          `;
+        }
+
+        const dateHtml = item.earned && item.earnedDate ? `<div class="card-date">${formatDate(item.earnedDate)}</div>` : '';
+
+        let actionsHtml = '';
+        if (item.earned) {
+          actionsHtml = `
+            <div class="card-actions">
+              ${item.certificate ? `<button class="btn btn-cert" onclick="openCert('${item.id}')">Certificate 🎖️</button>` : ''}
+              <a class="btn btn-link" href="${item.url}" target="_blank" rel="noopener noreferrer">Action ↗</a>
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          ${badgeHtml}
+          ${artHtml}
+          <h3 class="card-title">${item.name}</h3>
+          ${dateHtml}
+          <p class="card-desc">${item.description}</p>
+          ${actionsHtml}
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    filterBar.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCards(btn.dataset.filter);
+    });
+
+    window.openCert = function(id) {
+      const item = STICKER_DATA.find(s => s.id === id);
+      if (item && item.certificate) {
+        modalTitle.textContent = item.name;
+        modalImg.src = item.certificate;
+        modalDownload.href = item.certificate;
+        modal.classList.add('active');
+      }
+    };
+
+    modalClose.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') modal.classList.remove('active');
+    });
+
+    // Initial render
+    renderFilters();
+    renderCards('all');
+  </script>
+</body>
+</html>

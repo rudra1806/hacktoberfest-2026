@@ -1,0 +1,22 @@
+{
+  "name": "hacktoberfest-sticker-showcase",
+  "version": "1.0.0",
+  "description": "Hacktoberfest 2026 collectible sticker showcase for GitHub profile README",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-hacktoberfest.mjs",
+    "check": "node scripts/generate-hacktoberfest.mjs --check",
+    "extract": "node scripts/generate-hacktoberfest.mjs --extract",
+    "validate": "node -e \"import('./scripts/generate-hacktoberfest.mjs').then(m => { m.validateManifest(m.loadManifest()); console.log('✅ Manifest and assets valid'); })\""
+  },
+  "keywords": [
+    "hacktoberfest",
+    "hacktoberfest-2026",
+    "github-profile",
+    "stickers",
+    "collectibles",
+    "readme"
+  ],
+  "author": "Rudra Sanandiya",
+  "license": "MIT"
+}

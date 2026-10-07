@@ -1,0 +1,48 @@
+name: Hacktoberfest Sticker Update
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'data/hacktoberfest.json'
+      - 'scripts/generate-hacktoberfest.mjs'
+      - 'assets/hacktoberfest/**'
+
+permissions:
+  contents: write
+
+jobs:
+  update-showcase:
+    name: Regenerate Sticker Showcase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Hacktoberfest Showcase Generator
+        run: node scripts/generate-hacktoberfest.mjs
+
+      - name: Check for changes
+        id: git_status
+        run: |
+          if [ -n "$(git status --porcelain README.md assets/hacktoberfest docs/assets/hacktoberfest)" ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Changes detected in showcase files"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No changes detected in showcase files"
+          fi
+
+      - name: Commit and push changes
+        if: steps.git_status.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md assets/hacktoberfest docs/assets/hacktoberfest
+          git commit -m "chore(hacktoberfest): update sticker showcase in README [skip ci]"
+          git push
